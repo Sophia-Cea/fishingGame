@@ -1,0 +1,18 @@
+Idea:
+
+- You are a fisherman. You catch fish and you can sell the fish for money or keep them in your aquarium. 
+- You can pay to unlock other lakes and rivers to fish in
+- you buy an aquarium to show off your fish 
+- you can decorate each individual tank
+- you can buy more rooms in your aquarium
+- You can leave it on idle to catch fish over time or you can actively play and catch much better fish and faster
+- you can pay to upgrade your gear to catch better fish
+- Upgrades:
+    - Heavier rod can catch bigger fish
+    - better idle chances of catching a fish
+    - more difficulty in the casting thing but higher chance of scoring better fish
+    - better fish caught in idle
+    - more inventory space
+    - more holding pen space
+- make inventory get full and you can upgrade the boat to be bigger so you can have more inventory room
+- add a streak thing that increases chances of catching rarer fish if you have a higher streak

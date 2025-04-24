@@ -1,0 +1,177 @@
+{
+    "bluegill": {
+        "rarity": 9,
+        "image": "bluegill.png",
+        "price per pound": 3,
+        "max weight": 2,
+        "water type": "fresh"
+    },
+    "largemouth_bass": {
+        "rarity": 8,
+        "image": "largemouth_bass.png",
+        "price per pound": 5,
+        "max weight": 22,
+        "water type": "fresh"
+    },
+    "crappie": {
+        "rarity": 8,
+        "image": "crappie.png",
+        "price per pound": 4.5,
+        "max weight": 5,
+        "water type": "fresh"
+    },
+    "channel_catfish": {
+        "rarity": 7,
+        "image": "channel_catfish.png",
+        "price per pound": 2.5,
+        "max weight": 58,
+        "water type": "fresh"
+    },
+    "yellow_perch": {
+        "rarity": 7,
+        "image": "yellow_perch.png",
+        "price per pound": 4,
+        "max weight": 4.5,
+        "water type": "fresh"
+    },
+    "smallmouth_bass": {
+        "rarity": 6,
+        "image": "smallmouth_bass.png",
+        "price per pound": 5.5,
+        "max weight": 12,
+        "water type": "fresh"
+    },
+    "northern_pike": {
+        "rarity": 6,
+        "image": "northern_pike.png",
+        "price per pound": 6,
+        "max weight": 45,
+        "water type": "fresh"
+    },
+    "walleye": {
+        "rarity": 5,
+        "image": "walleye.png",
+        "price per pound": 7,
+        "max weight": 25,
+        "water type": "fresh"
+    },
+    "carp": {
+        "rarity": 5,
+        "image": "carp.png",
+        "price per pound": 1.5,
+        "max weight": 75,
+        "water type": "fresh"
+    },
+    "muskie": {
+        "rarity": 4,
+        "image": "muskie.png",
+        "price per pound": 8,
+        "max weight": 70,
+        "water type": "fresh"
+    },
+    "brook_trout": {
+        "rarity": 3,
+        "image": "brook_trout.png",
+        "price per pound": 9,
+        "max weight": 10,
+        "water type": "fresh"
+    },
+    "rainbow_trout": {
+        "rarity": 3,
+        "image": "rainbow_trout.png",
+        "price per pound": 10,
+        "max weight": 20,
+        "water type": "fresh"
+    },
+    "lake_sturgeon": {
+        "rarity": 2,
+        "image": "lake_sturgeon.png",
+        "price per pound": 12,
+        "max weight": 310,
+        "water type": "fresh"
+    },
+    "tiger_muskie": {
+        "rarity": 2,
+        "image": "tiger_muskie.png",
+        "price per pound": 9.5,
+        "max weight": 50,
+        "water type": "fresh"
+    },
+    "striped_bass": {
+        "rarity": 3,
+        "image": "striped_bass.png",
+        "price per pound": 7.5,
+        "max weight": 125,
+        "water type": "brackish"
+    },
+    "red_drum": {
+        "rarity": 4,
+        "image": "red_drum.png",
+        "price per pound": 6.5,
+        "max weight": 90,
+        "water type": "brackish"
+    },
+    "snook": {
+        "rarity": 3,
+        "image": "snook.png",
+        "price per pound": 9,
+        "max weight": 50,
+        "water type": "brackish"
+    },
+    "tarpon": {
+        "rarity": 5,
+        "image": "tarpon.png",
+        "price per pound": 5,
+        "max weight": 280,
+        "water type": "brackish"
+    },
+    "bull_shark": {
+        "rarity": 6,
+        "image": "bull_shark.png",
+        "price per pound": 4,
+        "max weight": 500,
+        "water type": "brackish"
+    },
+    "yellowfin_tuna": {
+        "rarity": 2,
+        "image": "yellowfin_tuna.png",
+        "price per pound": 12,
+        "max weight": 400,
+        "water type": "salt"
+    },
+    "blue_marlin": {
+        "rarity": 1,
+        "image": "blue_marlin.png",
+        "price per pound": 15,
+        "max weight": 1800,
+        "water type": "salt"
+    },
+    "mahi_mahi": {
+        "rarity": 3,
+        "image": "mahi_mahi.png",
+        "price per pound": 10,
+        "max weight": 88,
+        "water type": "salt"
+    },
+    "swordfish": {
+        "rarity": 2,
+        "image": "swordfish.png",
+        "price per pound": 14,
+        "max weight": 1400,
+        "water type": "salt"
+    },
+    "grouper": {
+        "rarity": 3,
+        "image": "grouper.png",
+        "price per pound": 9,
+        "max weight": 880,
+        "water type": "salt"
+    },
+    "snapper": {
+        "rarity": 4,
+        "image": "snapper.png",
+        "price per pound": 8,
+        "max weight": 50,
+        "water type": "salt"
+    }
+}

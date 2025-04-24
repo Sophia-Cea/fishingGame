@@ -1,0 +1,267 @@
+{
+    "Crystal Glade Lake" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "bluegill",
+            "largemouth_bass",
+            "channel_catfish",
+            "crappie",
+            "rainbow_trout",
+            "yellow_perch"
+        ],
+        "backgroundImg" : "crystalGladeBackground.png",
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Silverfin Lake" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "smallmouth_bass",
+            "northern_pike",
+            "walleye",
+            "carp",
+            "brook_trout"
+        ],
+        "backgroundImg" : "bg3.png",
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Willowshade Pond" : {
+        "waterType" : "brackish",
+        "fish" : [
+            "striped_bass",
+            "red_drum",
+            "snook"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Blackwater River" : {
+        "waterType" : "brackish",
+        "fish" : [
+            "tarpon",
+            "bull_shark",
+            "red_drum",
+            "striped_bass"
+        ],
+        "backgroundImg" : "bg5.png",
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Stoneflow Creek" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "brook_trout",
+            "smallmouth_bass",
+            "yellow_perch",
+            "bluegill"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Deepwood Stream" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "rainbow_trout",
+            "brook_trout",
+            "crappie",
+            "northern_pike"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Ebon Depths" : {
+        "waterType" : "salt",
+        "fish" : [
+            "yellowfin_tuna",
+            "blue_marlin",
+            "swordfish",
+            "grouper",
+            "snapper"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Ghostwater Reef" : {
+        "waterType" : "salt",
+        "fish" : [
+            "mahi_mahi",
+            "snapper",
+            "grouper",
+            "yellowfin_tuna"
+        ],
+        "backgroundImg" : "bg4.png",
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Blackfin Gulf" : {
+        "waterType" : "salt",
+        "fish" : [
+            "swordfish",
+            "blue_marlin",
+            "mahi_mahi",
+            "grouper"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Driftwood Bay" : {
+        "waterType" : "salt",
+        "fish" : [
+            "snapper",
+            "yellowfin_tuna",
+            "mahi_mahi",
+            "swordfish"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Coralmoon Bay" : {
+        "waterType" : "salt",
+        "fish" : [
+            "blue_marlin",
+            "grouper",
+            "snapper",
+            "yellowfin_tuna",
+            "mahi_mahi"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Serpent's Delta" : {
+        "waterType" : "brackish",
+        "fish" : [
+            "snook",
+            "tarpon",
+            "bull_shark",
+            "striped_bass",
+            "red_drum"
+        ],
+        "backgroundImg" : "bg1.png",
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Thornrush Creek" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "channel_catfish",
+            "largemouth_bass",
+            "muskie",
+            "tiger_muskie",
+            "walleye"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Lilyveil Pond" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "bluegill",
+            "crappie",
+            "carp",
+            "lake_sturgeon",
+            "yellow_perch"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Moonwillow Lake" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "largemouth_bass",
+            "northern_pike",
+            "walleye",
+            "muskie",
+            "rainbow_trout",
+            "smallmouth_bass"
+        ],
+        "backgroundImg" : "bg2.png",
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Foxbriar Creek" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "smallmouth_bass",
+            "brook_trout",
+            "channel_catfish",
+            "yellow_perch",
+            "bluegill"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Owlsong Pond" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "crappie",
+            "carp",
+            "tiger_muskie",
+            "bluegill",
+            "largemouth_bass"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    },
+    "Shadefen Lake" : {
+        "waterType" : "fresh",
+        "fish" : [
+            "lake_sturgeon",
+            "northern_pike",
+            "muskie",
+            "walleye",
+            "channel_catfish",
+            "carp"
+        ],
+        "backgroundImg" : null,
+        "waterColorDay" : [10, 66, 90],
+        "waterColorNight" : [2, 35, 49],
+        "splashColorDay" : [17, 93, 126],
+        "splashColorNight" : [12, 65, 83]
+    }
+}
