@@ -42,12 +42,12 @@ class Water:
 
     def render(self, screen):
         if self.background != None:
-            screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (0,0))
+            screen.blit(self.background, (0,0))
 
         if time == "Day":
-            pygame.draw.rect(screen, self.waterColorDay, (self.waterRect.x*GameData.scaleFactor, self.waterRect.y*GameData.scaleFactor, self.waterRect.w*GameData.scaleFactor, self.waterRect.h*GameData.scaleFactor))
+            pygame.draw.rect(screen, self.waterColorDay, (self.waterRect.x, self.waterRect.y, self.waterRect.w, self.waterRect.h))
         else: 
-            pygame.draw.rect(screen, self.waterColorNight, (self.waterRect.x*GameData.scaleFactor, self.waterRect.y*GameData.scaleFactor, self.waterRect.w*GameData.scaleFactor, self.waterRect.h*GameData.scaleFactor))
+            pygame.draw.rect(screen, self.waterColorNight, (self.waterRect.x, self.waterRect.y, self.waterRect.w, self.waterRect.h))
 
     def update(self):
         pass

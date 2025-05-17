@@ -1,5 +1,5 @@
-yee = "pizza pineapple"
+yee = ["a", "b", "c", "d"]
 
-yee = yee.split(" ")
+ye = yee.index("a")
 
-print(yee)
+print(ye)

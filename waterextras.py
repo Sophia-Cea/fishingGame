@@ -18,7 +18,7 @@ class WaterBody:
 
     def render(self, screen):
         if self.locked:
-            screen.blit(pygame.transform.scale_by(self.lock, GameData.scaleFactor), ((self.rectCenter[0] - self.lock.get_width()/2)*GameData.scaleFactor, (self.rectCenter[1] - self.lock.get_height()/2)*GameData.scaleFactor))
+            screen.blit(self.lock, ((self.rectCenter[0] - self.lock.get_width()/2), (self.rectCenter[1] - self.lock.get_height()/2)))
         if self.checkMouseOver():
             self.text.render(screen)
 
@@ -27,7 +27,7 @@ class WaterBody:
 
     def checkMouseOver(self):
         for rect in self.rects:
-            tempRect = pygame.Rect(rect.x*GameData.scaleFactor, rect.y*GameData.scaleFactor, rect.w*GameData.scaleFactor, rect.h*GameData.scaleFactor)
+            tempRect = pygame.Rect(rect.x*GameData.scaleFactor+GameData.fullscreenOffset, rect.y*GameData.scaleFactor, rect.w*GameData.scaleFactor, rect.h*GameData.scaleFactor)
             if tempRect.collidepoint(pygame.mouse.get_pos()):
                 return True
 

@@ -145,9 +145,9 @@ class Boat:
 
 
     def render(self, screen):
-        screen.blit(pygame.transform.scale_by(pygame.transform.rotate(self.image, self.angle), GameData.scaleFactor), (self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor))
+        screen.blit(pygame.transform.rotate(self.image, self.angle), (self.rect.x, self.rect.y))
 
-        screen.blit(pygame.transform.scale_by(self.boatWater, GameData.scaleFactor), (40*GameData.scaleFactor,465*GameData.scaleFactor))
+        screen.blit(self.boatWater, (40,465))
         for bubble in self.bubbles:
             bubble.render(screen)
         
@@ -157,6 +157,11 @@ class Boat:
             
 
     def update(self):
+        GameData.inventoryCapacity = GameData.upgradeData["upgradables"]["inventory capacity"]["current value"]
+        GameData.freshPenCapacity = GameData.upgradeData["upgradables"]["holding pen capacity fresh"]["current value"]
+        GameData.brackishPenCapacity = GameData.upgradeData["upgradables"]["holding pen capacity brackish"]["current value"]
+        GameData.saltPenCapacity = GameData.upgradeData["upgradables"]["holding pen capacity salt"]["current value"]
+        self.inventoryCapacity = GameData.inventoryCapacity
         self.rect.y = 180 + 8*math.sin(self.oscillationMarker/80)
         self.rect.x = 10 + 4*math.cos(self.oscillationMarker/80)
         self.angle = 2.5 * -math.sin(self.oscillationMarker/80 + math.pi/4)
@@ -170,14 +175,13 @@ class Boat:
         for bubble in self.bubbles:
             bubble.update()
 
-        for i, line in enumerate(GameData.lines):
-            if line["locked"] == False:
-                self.lines[i].update(self.reelLocation)
+        for i in range(len(GameData.lines)):
+            self.lines[i].update(self.reelLocation)
 
         willCatch = random.randint(1,100)
         if willCatch == 1:
             i = random.randint(0,3)
-            if GameData.lines[i]["locked"] == False:
+            if GameData.lines[i]["locked"] == False and self.lines[i].casting:
                 if GameData.lines[i]["bait"] != None and GameData.lines[i]["hook"] != None:
                     self.lines[i].splash()
                     baitGotEaten = random.randint(1,50)
@@ -190,14 +194,14 @@ class Boat:
         pass
 
     def checkClickedOn(self, pos):
-        tempRect = pygame.Rect(self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor, self.rect.w*GameData.scaleFactor, self.rect.h*GameData.scaleFactor)
+        tempRect = pygame.Rect(self.rect.x*GameData.scaleFactor+GameData.fullscreenOffset, self.rect.y*GameData.scaleFactor, self.rect.w*GameData.scaleFactor, self.rect.h*GameData.scaleFactor)
         return tempRect.collidepoint(pos)
     
     def catchAFish(self, lineIndex):
-        self.inventory.append(Fish(random.choices(self.water.fish, weights=self.water.fishWeights, k=1)[0]))
-        GameData.boatInventory.append(self.inventory[-1].convertToDict())
+        if len(self.inventory) < self.inventoryCapacity:
+            self.inventory.append(Fish(random.choices(self.water.fish, weights=self.water.fishWeights, k=1)[0]))
+            GameData.boatInventory.append(self.inventory[-1].convertToDict())
         
-
 class CastingLineFull:
     def __init__(self, startPt, endPt, stringLen, bubbleColor, index):
         self.index = index
@@ -248,7 +252,7 @@ class Bubble:
         self.oscillationCounter = 0
 
     def render(self, screen):
-        pygame.draw.circle(screen, self.color, (self.pos[0]*GameData.scaleFactor, self.pos[1]*GameData.scaleFactor), int(self.radius*GameData.scaleFactor))
+        pygame.draw.circle(screen, self.color, (self.pos[0], self.pos[1]), int(self.radius))
 
     def update(self):
         self.pos[0] += self.speed
@@ -285,10 +289,10 @@ class CastingBar:
         return isInTarget
 
     def render(self, screen):
-        pygame.draw.rect(screen, (158,217,201), ((self.rect.x+10)*GameData.scaleFactor, (self.rect.y+10)*GameData.scaleFactor, (self.rect.w-10)*GameData.scaleFactor, (self.rect.h-20)*GameData.scaleFactor))
-        pygame.draw.rect(screen, (34,116,119), (self.target*GameData.scaleFactor, self.rect.y*GameData.scaleFactor, self.difficulty*GameData.scaleFactor, self.rect.h*GameData.scaleFactor))
-        pygame.draw.rect(screen, (12,55,72), (self.position*GameData.scaleFactor, self.rect.y*GameData.scaleFactor, self.positionWidth*GameData.scaleFactor, self.rect.h*GameData.scaleFactor))
-        screen.blit(pygame.transform.scale_by(self.castingBar, GameData.scaleFactor), (self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor))
+        pygame.draw.rect(screen, (158,217,201), ((self.rect.x+10), (self.rect.y+10), (self.rect.w-10), (self.rect.h-20)))
+        pygame.draw.rect(screen, (34,116,119), (self.target, self.rect.y, self.difficulty, self.rect.h))
+        pygame.draw.rect(screen, (12,55,72), (self.position, self.rect.y, self.positionWidth, self.rect.h))
+        screen.blit(self.castingBar, (self.rect.x, self.rect.y))
 
     def update(self):
         self.position = self.rect.x + self.rect.w/100 * self.positionPercent
@@ -376,7 +380,7 @@ class SplashParticle:
         self.isFinished = False
 
     def render(self, screen):
-        pygame.draw.circle(screen, self.color, (self.pos[0]*GameData.scaleFactor, self.pos[1]*GameData.scaleFactor), int(self.size*GameData.scaleFactor))
+        pygame.draw.circle(screen, self.color, (self.pos[0], self.pos[1]), int(self.size))
 
     def update(self):
         self.pos[0] += self.xSpeed
@@ -399,7 +403,7 @@ class SplashWave:
         self.finished = False
 
     def render(self, screen):
-        pygame.draw.ellipse(screen, self.color, (self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor, self.rect.w*GameData.scaleFactor, self.rect.h*GameData.scaleFactor), int(self.lineThickness*GameData.scaleFactor))
+        pygame.draw.ellipse(screen, self.color, (self.rect.x, self.rect.y, self.rect.w, self.rect.h), int(self.lineThickness))
 
     def update(self):
         self.rect.w += self.speed
@@ -418,7 +422,6 @@ class CastingLine:
         self.endPoint = endPoint
         self.numLines = 10
         self.lines = []
-        # self.length = stringLength
         self.refpts = [self.startPoint, self.startPoint, self.endPoint]
         self.bezPts = []
         self.color = (160,165,151)
@@ -439,8 +442,8 @@ class CastingLine:
     def render(self, screen):
         tempArr = []
         for pt in self.bezPts:
-            tempArr.append((pt[0]*GameData.scaleFactor, pt[1]*GameData.scaleFactor))
-        pygame.draw.lines(screen, self.color, False, tempArr, int(2*GameData.scaleFactor))
+            tempArr.append((pt[0], pt[1]))
+        pygame.draw.lines(screen, self.color, False, tempArr, 2)
 
 
     def update(self, startPoint):
@@ -470,20 +473,26 @@ class ShopItem:
     def render(self, screen, pos):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
-        screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (pos[0]*GameData.scaleFactor, pos[1]*GameData.scaleFactor))
+        screen.blit(self.background, (pos[0], pos[1]))
 
     def checkMouseOver(self):
         pos = pygame.mouse.get_pos()
-        return pygame.Rect(self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor, self.rect.w*GameData.scaleFactor, self.rect.h*GameData.scaleFactor).collidepoint(pos)
+        return pygame.Rect(self.rect.x*GameData.scaleFactor+GameData.fullscreenOffset, self.rect.y*GameData.scaleFactor, self.rect.w*GameData.scaleFactor, self.rect.h*GameData.scaleFactor).collidepoint(pos)
 
 class UnlockableItem(ShopItem):
-    def __init__(self, infoDict):
+    def __init__(self, index):
         super().__init__()
-        self.infoDict = GameData.upgradeData["unlockables"][infoDict]
+        self.infoDict = GameData.upgradeData["unlockables"][index]
+        self.index = index
+        self.upgradeTree = self.infoDict["upgrade tree"]
         self.name = self.infoDict["name"]
         self.unlocked = self.infoDict["unlocked"]
         self.level = self.infoDict["level"]
-        self.cost = self.infoDict["cost"]
+        self.maxedOut = self.level == self.infoDict["max level"]
+        if not self.unlocked:
+            self.cost = self.infoDict["cost"]
+        elif not self.maxedOut:
+            self.cost = self.upgradeTree[self.level+1]
         self.image = self.infoDict["image"]
         self.icon = pygame.image.load("images/uiElements/" + self.image)
         self.iconProportion = self.icon.get_width()/self.icon.get_height()
@@ -492,29 +501,45 @@ class UnlockableItem(ShopItem):
         self.lockCoords = (self.background.get_width()/2-self.lockIcon.get_width()/2, 20)
 
         self.nameText = Text(self.name, 10, (self.background.get_width()/2, 75), True, shadow=True)
-        self.costText = Text("$" + str(self.cost), 12, (self.background.get_width()/2, 90), True, shadow=True)
+
+        if not self.maxedOut:
+            self.costText = Text("$" + str(self.cost), 12, (self.background.get_width()/2, 90), True, shadow=True)
 
         self.background.blit(self.icon, (self.background.get_width()/2-self.icon.get_width()/2, 15))
         self.nameText.render(self.background)
-        self.costText.render(self.background)
+        if not self.maxedOut:
+            self.costText.render(self.background)
 
     def render(self, screen, pos):
         super().render(screen, pos)
         if not self.unlocked:
             screen.blit(self.lockIcon, (pos[0] + self.lockCoords[0], pos[1]+self.lockCoords[1]))
+    
+    def upgradeItem(self):
+        pass
+
+    def resetValsAndText(self):
+        pass
 
 class UpgradableItem(ShopItem):
     def __init__(self, infoDict):
+        self.dictName = infoDict
+        self.resetValuesAndText()
+    
+    def upgradeItem(self):
+        if self.currentLevel < GameData.upgradeData["upgradables"][self.dictName]["max level"]:
+            GameData.upgradeData["upgradables"][self.dictName]["current level"] += 1
+            GameData.upgradeData["upgradables"][self.dictName]["current value"] = list(self.infoDict["upgrade tree"].values())[self.currentLevel]
+            self.resetValuesAndText()
+
+    def resetValuesAndText(self):
         super().__init__()
-        self.infoDict = GameData.upgradeData["upgradables"][infoDict]
+        self.infoDict = GameData.upgradeData["upgradables"][self.dictName]
         self.name = self.infoDict["name"]
         self.currentValue = self.infoDict["current value"]
         self.currentLevel = self.infoDict["current level"]
-        self.cost = list(self.infoDict["upgrade tree"].keys())[self.currentLevel]
-
-        # self.icon = pygame.transform.scale_by(pygame.image.load("images/uiElements/logo.png"), 1.5)
-        # self.lockIcon = pygame.transform.scale_by(pygame.image.load("images/uiElements/lock.png"), 4)
-        # self.lockCoords = (self.background.get_width()/2-self.lockIcon.get_width()/2, 20)
+        if self.currentLevel < GameData.upgradeData["upgradables"][self.dictName]["max level"]:
+            self.cost = list(self.infoDict["upgrade tree"].keys())[self.currentLevel]
 
         self.nameTexts = []
         if len(self.name) > 10:
@@ -525,13 +550,14 @@ class UpgradableItem(ShopItem):
             self.nameTexts.append(Text(self.name, 11.5, (self.background.get_width()/2, 25), True, shadow=True))
         
         self.levelText = Text("Level: " + str(self.currentLevel), 10, (self.background.get_width()/2, 70), True, shadow=True)
-        self.costText = Text("$" + str(self.cost), 12, (self.background.get_width()/2, 85), True, shadow=True)
-
-        # self.background.blit(self.icon, (self.background.get_width()/2-self.icon.get_height()/2, 15))
+        if self.currentLevel < GameData.upgradeData["upgradables"][self.dictName]["max level"]:
+            self.costText = Text("$" + str(self.cost), 12, (self.background.get_width()/2, 85), True, shadow=True)
+        
         for text in self.nameTexts:
             text.render(self.background)
         self.levelText.render(self.background)
-        self.costText.render(self.background)
+        if self.currentLevel < GameData.upgradeData["upgradables"][self.dictName]["max level"]:
+            self.costText.render(self.background)
 
 class BuyableItem(ShopItem):
     def __init__(self, infoDict):
@@ -588,7 +614,7 @@ class ShopLabelButton:
         self.text.render(self.background)
 
     def render(self, screen):
-        screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor))
+        screen.blit(self.background, (self.rect.x, self.rect.y))
 
     def checkMouseOver(self):
         return pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h).collidepoint(pygame.mouse.get_pos())
@@ -706,20 +732,25 @@ class HookItem(DragAndDropItem):
 
 class LineControlButton:
     def __init__(self, index):
-        self.image = pygame.transform.scale_by(pygame.image.load("images/uiElements/radar_window.png"), 4)
+        self.image = pygame.transform.scale_by(pygame.image.load("images/uiElements/line_panel.png"), 5)
         self.surface = pygame.Surface((self.image.get_width(),self.image.get_height()), pygame.SRCALPHA)
-        self.labelText = Text("Line " + str(index+1), 10, (self.image.get_width()/2, 10), True)
-        self.statusCastingText = Text("Reel in", 10, (self.image.get_width()/2, 30), True)
-        self.statusRestingText = Text("Cast", 10, (self.image.get_width()/2, 30), True)
+        self.labelText = Text("Line " + str(index+1), 10, (self.image.get_width()/2, 15), True)
+        self.statusCastingText = Text("Reel in", 10, (self.image.get_width()/2, 38), True)
+        self.statusRestingText = Text("Cast", 10, (self.image.get_width()/2, 38), True)
         self.index = index
         self.casting = True
         self.rect = pygame.Rect(0,0, self.image.get_width(), self.image.get_height())
-        self.baitName = GameData.lines[index]["bait"]
-        self.hookName = GameData.lines[index]["hook"]
+        self.resetItems()
+
+    def resetItems(self):
+        self.baitName = GameData.lines[self.index]["bait"]
+        self.hookName = GameData.lines[self.index]["hook"]
         if self.baitName != None:
-            self.bait = pygame.transform.scale_by(pygame.image.load("images/uiElements/" + self.baitName + ".png"), 3)
+            self.bait = pygame.image.load("images/uiElements/" + self.baitName + ".png")
+            self.bait = pygame.transform.scale_by(self.bait, 20/self.bait.get_width())
         if self.hookName != None:
-            self.hook = pygame.transform.scale_by(pygame.image.load("images/uiElements/hook_" + str(self.hookName) + ".png"), 3)
+            self.hook = pygame.image.load("images/uiElements/hook_" + str(self.hookName) + ".png")
+            self.hook = pygame.transform.scale_by(self.hook, 20/self.hook.get_width())
 
     def render(self, screen, pos):
         self.surface.blit(self.image, (0,0))
@@ -730,23 +761,26 @@ class LineControlButton:
             self.statusRestingText.render(self.surface)
         
         if self.baitName != None:
-            self.surface.blit(self.bait, (50-self.bait.get_width()/2, 55-self.bait.get_height()/2))
+            self.surface.blit(self.bait, (43-self.bait.get_width()/2, 73-self.bait.get_height()/2))
         if self.hookName != None:
-            self.surface.blit(self.hook, (125-self.hook.get_width()/2, 55-self.hook.get_height()/2))
+            self.surface.blit(self.hook, (82-self.hook.get_width()/2, 73-self.hook.get_height()/2))
         
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         screen.blit(self.surface, pos)
     
     def update(self):
-        if self.baitName != GameData.lines[self.index]["bait"]:
-            self.baitName = GameData.lines[self.index]["bait"]
-            if self.baitName != None:
-                self.bait = pygame.transform.scale_by(pygame.image.load("images/uiElements/" + self.baitName + ".png"), 3)
-        if self.hookName != GameData.lines[self.index]["hook"]:
-            self.hookName = GameData.lines[self.index]["hook"]
-            if self.hookName != None:
-                self.hook = pygame.transform.scale_by(pygame.image.load("images/uiElements/hook_" + str(self.hookName) + ".png"), 3)
+        # if self.baitName != GameData.lines[self.index]["bait"]:
+        #     self.baitName = GameData.lines[self.index]["bait"]
+        #     if self.baitName != None:
+        #         self.bait = pygame.transform.scale_by(pygame.image.load("images/uiElements/" + self.baitName + ".png"), 3)
+        # if self.hookName != GameData.lines[self.index]["hook"]:
+        #     self.hookName = GameData.lines[self.index]["hook"]
+        #     if self.hookName != None:
+        #         self.hook = pygame.transform.scale_by(pygame.image.load("images/uiElements/hook_" + str(self.hookName) + ".png"), 3)
+        if self.baitName != GameData.lines[self.index]["bait"] or self.hookName != GameData.lines[self.index]["hook"]:
+            self.resetItems()
+       
     
     def checkMouseOver(self):
         pos = pygame.mouse.get_pos()

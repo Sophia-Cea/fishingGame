@@ -58,18 +58,18 @@ class BoatState(State):
 
     def render(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(sky, GameData.scaleFactor), (0,0))
+        screen.blit(sky, (0,0))
         boat.water.render(screen)
         boat.render(screen)
         self.menuButton.render(screen)
 
         spacing = 20
-        margin = (1000 - (len(self.lineButtons) * (self.lineButtons[0].rect.w + spacing)-spacing))/2
+        margin = (1000 - (len(self.lineButtons) * (self.lineButtons[0].rect.w + spacing)))/2
 
         for i, button in enumerate(self.lineButtons):
-            button.render(screen, (margin+i*button.rect.w, 600))
+            button.render(screen, (margin+i*(button.rect.w+spacing), 600))
 
-        screen.blit(pygame.transform.scale_by(self.moneyBox, GameData.scaleFactor), (20*GameData.scaleFactor,20*GameData.scaleFactor))
+        screen.blit(self.moneyBox, (20,20))
         self.moneyText.render(screen)
 
         if boat.casting:
@@ -83,6 +83,8 @@ class BoatState(State):
         boat.update()
         boat.water.update()
 
+        # print(GameData.inventoryCapacity)
+
         GameData.money = round(GameData.money, 2)
         self.moneyText = Text("$" + str(GameData.money), 20, (35,45))
 
@@ -91,6 +93,19 @@ class BoatState(State):
 
         for button in self.lineButtons:
             button.update()
+
+        num = 0
+        for i in range(4):
+            if GameData.lines[i]["locked"] == False:
+                num += 1
+        
+        if num != len(self.lineButtons):
+            self.lineButtons = []
+            for i in range(4):
+                if GameData.lines[i]["locked"] == False:
+                    self.lineButtons.append(LineControlButton(i))
+
+            
 
 
     def handleInput(self, events):
@@ -145,17 +160,17 @@ class MainMenuState(State):
 
     def render(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(self.surface, GameData.scaleFactor), (self.backgroundCoords[0]*GameData.scaleFactor, self.backgroundCoords[1]*GameData.scaleFactor))
+        screen.blit(self.surface, (self.backgroundCoords[0], self.backgroundCoords[1]))
         self.titleText.render(screen)
 
-        screen.blit(pygame.transform.scale_by(self.moneyBox, GameData.scaleFactor), (20*GameData.scaleFactor, 20*GameData.scaleFactor))
+        screen.blit(self.moneyBox, (20, 20))
         self.moneyText.render(screen)
 
         for button in self.buttons:
             button.render(screen)
 
         if GameData.aquariumLocked:
-            screen.blit(pygame.transform.scale_by(self.lockedImage, GameData.scaleFactor), (365*GameData.scaleFactor, 305*GameData.scaleFactor))
+            screen.blit(self.lockedImage, (365, 305))
 
 
     def update(self):
@@ -214,7 +229,7 @@ class FishMenuState(State):
         self.keepButton = Button((410,480), "Keep")
 
     def render(self, screen):
-        screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (self.backgroundCoords[0]*GameData.scaleFactor, self.backgroundCoords[1]*GameData.scaleFactor))
+        screen.blit(self.background, (self.backgroundCoords[0], self.backgroundCoords[1]))
         
         for text in self.titles:
             text.render(screen) 
@@ -271,13 +286,13 @@ class BoatInventoryState(State):
 
     def render(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (self.backgroundCoords[0]*GameData.scaleFactor, self.backgroundCoords[1]*GameData.scaleFactor))
+        screen.blit(self.background, (self.backgroundCoords[0], self.backgroundCoords[1]))
         self.titleText.render(screen)
         self.xButton.render(screen)
         for i, fish in enumerate(boat.inventory[self.currentPage*self.numFishPerPage:(self.currentPage+1)*self.numFishPerPage]):
             fish.render(screen, (self.marginX + i%self.numPerLine * self.spacing, self.marginY + i//self.numPerLine * self.spacingY))
 
-        screen.blit(pygame.transform.scale_by(self.moneyBox, GameData.scaleFactor), (20*GameData.scaleFactor,20*GameData.scaleFactor))
+        screen.blit(self.moneyBox, (20,20))
         self.moneyText.render(screen)
 
         if self.currentPage > 0:
@@ -306,7 +321,7 @@ class BoatInventoryState(State):
                     stateManager.pop()
                 
                 for i, fish in enumerate(boat.inventory[self.currentPage*self.numFishPerPage:(self.currentPage+1)*self.numFishPerPage]):
-                    if pygame.Rect((self.marginX + i%self.numPerLine * self.spacing)*GameData.scaleFactor, (self.marginY + i//self.numPerLine * self.spacingY)*GameData.scaleFactor, (fish.image.get_width())*GameData.scaleFactor, (fish.image.get_height())*GameData.scaleFactor).collidepoint(pygame.mouse.get_pos()):
+                    if pygame.Rect((self.marginX + i%self.numPerLine * self.spacing)*GameData.scaleFactor+GameData.fullscreenOffset, (self.marginY + i//self.numPerLine * self.spacingY)*GameData.scaleFactor, (fish.image.get_width())*GameData.scaleFactor, (fish.image.get_height())*GameData.scaleFactor).collidepoint(pygame.mouse.get_pos()):
                         stateManager.push(FishMenuState(fish))
                 
                 if self.currentPage > 0:
@@ -331,10 +346,10 @@ class MapMenuState(State):
 
     def render(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(self.moneyBox, GameData.scaleFactor), (20*GameData.scaleFactor,20*GameData.scaleFactor))
+        screen.blit(self.moneyBox, (20,20))
         self.moneyText.render(screen)
-        screen.blit(pygame.transform.scale_by(self.surface, GameData.scaleFactor), (self.backgroundCoords[0]* GameData.scaleFactor, self.backgroundCoords[1]* GameData.scaleFactor))
-        screen.blit(pygame.transform.scale_by(self.map, GameData.scaleFactor), (self.mapCoords[0]*GameData.scaleFactor, self.mapCoords[1]*GameData.scaleFactor))
+        screen.blit(self.surface, (self.backgroundCoords[0], self.backgroundCoords[1]))
+        screen.blit(self.map, (self.mapCoords[0], self.mapCoords[1]))
         self.xButton.render(screen)
 
         for key, value in waterbodies.items():
@@ -381,7 +396,7 @@ class NotEnoughMoneyState(State):
 
     def render(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (self.backgroundCoords[0]*GameData.scaleFactor, self.backgroundCoords[1]*GameData.scaleFactor))
+        screen.blit(self.background, (self.backgroundCoords[0], self.backgroundCoords[1]))
         self.text.render(screen)
         self.okButton.render(screen)
     
@@ -406,7 +421,6 @@ class PopupStateBase(State):
         if type(self.name) == list:
             self.name.reverse()
             for i in range(len(self.name)-1,0,-1):
-                print(self.name[i] + self.name[i-1])
                 if len(self.name[i] + self.name[i-1]) < 15:
                     self.name[i-1] = self.name[i] + " " + self.name[i-1]
                     self.name.pop(i)
@@ -427,7 +441,7 @@ class PopupStateBase(State):
 
     def render(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (self.backgroundCoords[0]*GameData.scaleFactor, self.backgroundCoords[1]*GameData.scaleFactor))
+        screen.blit(self.background, (self.backgroundCoords[0], self.backgroundCoords[1]))
         for text in self.texts:
             text.render(screen)
 
@@ -456,7 +470,7 @@ class PopUpQuestionState(PopupStateBase):
 
     def render(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(self.background, GameData.scaleFactor), (self.backgroundCoords[0]*GameData.scaleFactor, self.backgroundCoords[1]*GameData.scaleFactor))
+        screen.blit(self.background, (self.backgroundCoords[0], self.backgroundCoords[1]))
         for text in self.texts:
             text.render(screen)
 
@@ -495,10 +509,10 @@ class ShopStateBase(State):
 
     def renderBackground(self, screen):
         super().render(screen)
-        screen.blit(pygame.transform.scale_by(self.surface, GameData.scaleFactor), (self.backgroundCoords[0]*GameData.scaleFactor, self.backgroundCoords[1]*GameData.scaleFactor))
+        screen.blit(self.surface, (self.backgroundCoords[0], self.backgroundCoords[1]))
         self.titleText.render(screen)
         self.xButton.render(screen)
-        screen.blit(pygame.transform.scale_by(self.moneyBox, GameData.scaleFactor), (20*GameData.scaleFactor, 20*GameData.scaleFactor))
+        screen.blit(self.moneyBox, (20, 20))
         self.moneyText.render(screen)
 
     def renderItems(self, screen):
@@ -564,8 +578,11 @@ class ShopState(ShopStateBase):
 class ShopUnlockablesState(ShopStateBase):
     def __init__(self):
         self.shopItems = []
-        for item in GameData.upgradeData["unlockables"]:
-            self.shopItems.append(UnlockableItem(item))
+        for i, item in enumerate(GameData.upgradeData["unlockables"]):
+            self.shopItems.append(UnlockableItem(i))
+        self.selectedItemIndex = None
+        self.selectedItem = None
+        self.bought = False
         super().__init__("Unlockables")
 
     def render(self, screen):
@@ -574,13 +591,42 @@ class ShopUnlockablesState(ShopStateBase):
     
     def update(self):
         super().update()
+        if self.selectedItem != None and self.bought:
+            if self.selectedItem.name == "Line 2":
+                if self.selectedItem.unlocked == False:
+                    self.selectedItem.unlocked = True
+                    GameData.upgradeData["unlockables"][self.selectedItemIndex]["unlocked"] = True
+                    GameData.lines[1]["locked"] = False
+                else:
+                    GameData.upgradeData["unlockables"][self.selectedItemIndex]["level"] += 1
+            if self.selectedItem.name == "Line 3":
+                if self.selectedItem.unlocked == False:
+                    self.selectedItem.unlocked = True
+                    GameData.upgradeData["unlockables"][self.selectedItemIndex]["unlocked"] = True
+                    GameData.lines[2]["locked"] = False
+                else:
+                    GameData.upgradeData["unlockables"][self.selectedItemIndex]["level"] += 1
+            if self.selectedItem.name == "Line 4":
+                if self.selectedItem.unlocked == False:
+                    self.selectedItem.unlocked = True
+                    GameData.upgradeData["unlockables"][self.selectedItemIndex]["unlocked"] = True
+                    GameData.lines[3]["locked"] = False
+                else:
+                    GameData.upgradeData["unlockables"][self.selectedItemIndex]["level"] += 1
+            
+            self.shopItems[self.selectedItemIndex] = UnlockableItem(GameData.upgradeData["unlockables"][self.selectedItemIndex])
+            self.selectedItem = None 
+            self.selectedItemIndex = None
+            self.bought = False
     
     def handleInput(self, events):
         super().handleInput(events)
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                for item in self.shopItems:
+                for i, item in enumerate(self.shopItems):
                     if item.checkMouseOver():
+                        self.selectedItemIndex = i
+                        self.selectedItem = item
                         if not item.unlocked:
                             stateManager.push(PopupStateBase(item.cost, item.name))
                         else:
@@ -591,6 +637,9 @@ class ShopUpgradablesState(ShopStateBase):
         self.shopItems = []
         for item in GameData.upgradeData["upgradables"]:
             self.shopItems.append(UpgradableItem(item))
+        self.selectedItem = None
+        self.selectedItemIndex = None
+        self.bought = False
         super().__init__("Upgradables")
 
     def render(self, screen):
@@ -599,16 +648,24 @@ class ShopUpgradablesState(ShopStateBase):
     
     def update(self):
         super().update()
+        if self.selectedItemIndex != None and self.selectedItem != None and self.bought:
+            self.selectedItem.upgradeItem()
+            self.selectedItemIndex = None
+            self.selectedItem = None
+            self.bought = False
     
     def handleInput(self, events):
         super().handleInput(events)
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                for item in self.shopItems:
+                for i, item in enumerate(self.shopItems):
                     if item.checkMouseOver():
+                        self.selectedItem = item
+                        self.selectedItemIndex = i
                         stateManager.push(PopupStateBase(item.cost, item.name, "upgrade"))
 
-class ShopItemsState(ShopStateBase):
+
+class ShopItemsState(ShopStateBase): # fix this class
     def __init__(self):
         self.shopItems = []
         for item in GameData.upgradeData["items"]:
@@ -630,7 +687,8 @@ class ShopItemsState(ShopStateBase):
                 GameData.itemsBought["bait"].append(self.selectedItem)
             self.selectedItem = None
             self.bought = False
-            print("bought an item")
+        elif self.selectedItem != None and self.bought == False:
+            self.selectedItem = None
 
     
     def handleInput(self, events):

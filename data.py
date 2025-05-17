@@ -11,8 +11,13 @@ class GameData:
     boatInventory = []
 
     frequencyOfBite = 100
+    isFullscreen = False
+    fullscreenOffset = 0
 
     inventoryCapacity = 20
+    saltPenCapacity = 5
+    freshPenCapacity = 5
+    brackishPenCapacity = 5
     aquariumRoomsUnlocked = []
     upgradesAcquired = []
     watersUnlocked = ["Crystal Glade Lake", "Silverfin Lake"]
@@ -24,17 +29,17 @@ class GameData:
             "hook" : 1
         },
         {
-            "locked": False,
+            "locked": True,
             "bait" : None,
             "hook" : None
         },
         {
-            "locked": False,
+            "locked": True,
             "bait" : None,
             "hook" : None
         },
         {
-            "locked": False,
+            "locked": True,
             "bait" : None,
             "hook" : None
         },
@@ -56,69 +61,112 @@ class GameData:
     }
 
     upgradeData = {
-        "unlockables" : {
-            "Net" : {
+        "unlockables" : [
+            {
                 "name" : "Net",
                 "unlocked" : False,
-                "level" : 0,
+                "level" : 1,
                 "max level" : 5,
                 "cost" : 2000,
-                "image" : "net_1.png"
+                "image" : "net_1.png",
+                "upgrade tree" : {
+                    2: 5000,
+                    3: 9000,
+                    4: 15000,
+                    5: 30000
+                }
             },
-            "Idle Catch" : {
+            {
                 "name" : "Idle Catch",
                 "unlocked" : False,
-                "level" : 0,
+                "level" : 1,
                 "max level" : 5,
                 "cost" : 2000,
-                "image" : "logo.png"
+                "image" : "logo.png",
+                "upgrade tree" : {
+                    2: 5000,
+                    3: 9000,
+                    4: 15000,
+                    5: 30000
+                }
             },
-            "Line 1" : {
+            {
                 "name" : "Line 1",
                 "unlocked" : True,
                 "level" : 1,
                 "max level" : 5,
                 "cost" : 2000,
-                "image" : "line.png"
+                "image" : "line.png",
+                "upgrade tree" : {
+                    2: 5000,
+                    3: 9000,
+                    4: 15000,
+                    5: 30000
+                }
             },
-            "Line 2" : {
+            {
                 "name" : "Line 2",
                 "unlocked" : False,
-                "level" : 0,
+                "level" : 1,
                 "max level" : 5,
                 "cost" : 2000,
-                "image" : "line.png"
+                "image" : "line.png",
+                "upgrade tree" : {
+                    2: 5000,
+                    3: 9000,
+                    4: 15000,
+                    5: 30000
+                }
             },
-            "Line 3" : {
+            {
                 "name" : "Line 3",
                 "unlocked" : False,
-                "level" : 0,
-                "max level" : 5,
+                "level" : 1,
                 "cost" : 2000,
-                "image" : "line.png"
+                "max level" : 5,
+                "image" : "line.png",
+                "upgrade tree" : {
+                    2: 5000,
+                    3: 9000,
+                    4: 15000,
+                    5: 30000
+                }
             },
-            "Line 4" : {
+            {
                 "name" : "Line 4",
                 "unlocked" : False,
-                "level" : 0,
-                "max level" : 5,
+                "level" : 1,
                 "cost" : 2000,
-                "image" : "line.png"
+                "max level" : 5,
+                "image" : "line.png",
+                "upgrade tree" : {
+                    2: 5000,
+                    3: 9000,
+                    4: 15000,
+                    5: 30000
+                }
             },
-            "Radar" : {
+            {
                 "name" : "Radar",
                 "unlocked" : False,
-                "level" : 0,
-                "max level" : 5,
+                "level" : 1,
                 "cost" : 2000,
-                "image" : "radar1.png"
+                "max level" : 5,
+                "image" : "radar1.png",
+                "upgrade tree" : {
+                    2: 5000,
+                    3: 9000,
+                    4: 15000,
+                    5: 30000
+                }
             }
-        },
+        ],
         "upgradables" : {
             "inventory capacity" : {
                 "name" : "Inventory Capacity",
                 "current value" : 20,
                 "current level" : 0,
+                "max level" : 8,
                 "max" : 2000,
                 "upgrade tree" : { # first cost then upgrade value
                     500: 25, 
@@ -136,6 +184,7 @@ class GameData:
                 "name" : "Fresh Pen Capacity",
                 "current value" : 5,
                 "current level" : 0,
+                "max level" : 8,
                 "max" : 500,
                 "upgrade tree" : { # first cost then upgrade value
                     500: 10, 
@@ -153,6 +202,7 @@ class GameData:
                 "name" : "Salt Pen Capacity",
                 "current value" : 5,
                 "current level" : 0,
+                "max level" : 8,
                 "max" : 500,
                 "upgrade tree" : { # first cost then upgrade value
                     500: 10, 
@@ -171,6 +221,7 @@ class GameData:
                 "current value" : 5,
                 "current level" : 0,
                 "max" : 500,
+                "max level" : 8,
                 "upgrade tree" : { # first cost then upgrade value
                     500: 10, 
                     1000: 20, 
@@ -188,6 +239,7 @@ class GameData:
                 "current value" : .01,
                 "current level" : 0,
                 "max" : .1,
+                "max level" : 8,
                 "upgrade tree" : { # first cost then upgrade value
                     1000: .015, 
                     2000: .02, 

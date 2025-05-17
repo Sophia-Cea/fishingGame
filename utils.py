@@ -127,7 +127,7 @@ class Text:
         self.scaledImage = pygame.transform.scale_by(self.text, 1)
 
     def render(self, surface):
-        surface.blit(pygame.transform.scale_by(self.text, GameData.scaleFactor), (self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor))
+        surface.blit(self.text, (self.rect.x, self.rect.y))
     
     def resize(self, scalefactor):
         self.scaledImage = pygame.transform.scale_by(self.text, 1)
@@ -152,7 +152,7 @@ class Button:
         self.hovering = False
 
     def render(self, screen):
-        screen.blit(pygame.transform.scale_by(self.image, GameData.scaleFactor), (self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor))
+        screen.blit(self.image, (self.rect.x, self.rect.y))
 
     def checkMouseOver(self, pos):
         tempRect = pygame.Rect(self.rect.x*GameData.scaleFactor, self.rect.y*GameData.scaleFactor, self.rect.w*GameData.scaleFactor, self.rect.h*GameData.scaleFactor)
